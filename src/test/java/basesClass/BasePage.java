@@ -20,11 +20,6 @@ public class BasePage {
 
     public WebElement visibilityOfElementByXpath (String locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
-
     }
-
-
-
-
 
 }

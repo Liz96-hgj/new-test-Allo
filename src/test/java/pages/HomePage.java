@@ -11,14 +11,13 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    private final String  ALLO_LOGO = "//a[@class='v-logo']";
+    private final String ALLO_LOGO = "//a[@class='v-logo']";
     private final String CATALOG_BUTTON = "//div[@class='mh-catalog-btn']";
     private final String SEARCH_INPUT = "//input[@id='search-form__input']";
     private final String SEARCH_BUTTON ="//button[contains(@class, 'search-form__submit')]";
     private final String BUYERS_BUTTON = "//a[contains(text(),'Покупцям')]";
     private final String DROP_DOWN_MENU = "//a[contains(text(),'Покупцям')]";
     private final String DELIVERY_AND_PAYMENT ="//a[contains(@class, 'mh-button') and contains(normalize-space(.), 'Доставка і оплата')]";
-
 
     public WebElement alloLogo() {
         return visibilityOfElementByXpath(ALLO_LOGO);
@@ -47,7 +46,5 @@ public class HomePage extends BasePage {
     public WebElement deliveryAndPayment() {
         return visibilityOfElementByXpath(DELIVERY_AND_PAYMENT);
     }
-
-
 
 }

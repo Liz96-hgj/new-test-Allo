@@ -19,7 +19,7 @@ public class AlloTest extends TestInit {
     public String alloUrl = "https://allo.ua";
 
     @Test
-    public void AlloLogoTest()  {
+    public void alloLogoTest() {
 
         HomePage homePage = new HomePage(driver);
 
@@ -42,12 +42,13 @@ public class AlloTest extends TestInit {
         homePage.searchInput().sendKeys("Фен");
         homePage.searchButton().click();
 
-        Assert.assertTrue(searchResultPage.firstProduct().getText().toLowerCase().contains("фен"));
+        String expectedWord = "фен";
+        Assert.assertTrue(searchResultPage.firstProduct().getText().contains(expectedWord));
 
     }
 
     @Test
-    public void checkAirPods3SearchAndCompareName() throws InterruptedException {
+    public void checkAirPods3SearchAndCompareName() {
 
         HomePage homePage = new HomePage(driver);
         SearchResultPage searchResultPage = new SearchResultPage(driver);
@@ -56,21 +57,20 @@ public class AlloTest extends TestInit {
 
         Assert.assertTrue(homePage.alloLogo().isDisplayed());
 
-
-        homePage.searchInput().sendKeys("AirPods 3");
+        String producnName = "AirPods 3";
+        homePage.searchInput().sendKeys(producnName);
         homePage.searchButton().click();
 
-        Assert.assertTrue(searchResultPage.firstProduct3().getText().contains("AirPods 3"));
+        Assert.assertTrue(searchResultPage.firstProduct3().getText().contains(producnName));
         searchResultPage.firstProduct3().click();
 
 
-        Assert.assertTrue(searchResultPage.productTitle().getText().contains("AirPods 3"));
-
+        Assert.assertTrue(searchResultPage.productTitle().getText().contains(producnName));
 
     }
 
     @Test
-    public void checkBuyersDeliveryAndPayment() throws InterruptedException {
+    public void checkBuyersDeliveryAndPayment() {
 
         HomePage homePage = new HomePage(driver);
         SearchResultPage searchResultPage = new SearchResultPage(driver);
@@ -82,16 +82,18 @@ public class AlloTest extends TestInit {
 
 
         Assert.assertTrue(homePage.dropDownMenu().isDisplayed());
-
         Assert.assertTrue(homePage.deliveryAndPayment().isDisplayed());
         homePage.deliveryAndPayment().click();
 
-        Assert.assertTrue(homePage.deliveryAndPayment().getText().contains("Доставка і оплата"));
+        String deliverySectionTitle = "Доставка і оплата";
+        Assert.assertTrue(homePage.deliveryAndPayment().getText().contains(deliverySectionTitle));
 
         Assert.assertTrue(searchResultPage.howToOrder().isDisplayed());
 
-        Assert.assertTrue(searchResultPage.howToOrder().getText().contains("Як оформити замовлення?"));
+        String howToOrderTitle = "Як оформити замовлення";
+        Assert.assertTrue(searchResultPage.howToOrder().getText().contains(howToOrderTitle));
 
 
     }
+
 }
