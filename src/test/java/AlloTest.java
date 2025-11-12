@@ -1,146 +1,97 @@
 
 
+import basesClass.TestInit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.HomePage;
+import pages.SearchResultPage;
 
-import static java.lang.Thread.sleep;
+import java.time.Duration;
 
-public class AlloTest {
+public class AlloTest extends TestInit {
+
+    public String alloUrl = "https://allo.ua";
 
     @Test
-    public void AlloLogoTest() throws InterruptedException {
+    public void AlloLogoTest()  {
 
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        HomePage homePage = new HomePage(driver);
 
-        driver.get("https://allo.ua");
+        openUrl(alloUrl);
 
-        sleep(3000);
-
-        WebElement alloButtonLocator = driver.findElement(By.xpath("//a[@class='v-logo']"));
-        Assert.assertTrue(alloButtonLocator.isDisplayed());
-
-        driver.quit();
+        Assert.assertTrue(homePage.alloLogo().isDisplayed());
 
     }
 
     @Test
-    public void checkSearchFieldAndSearchResults() throws InterruptedException {
+    public void checkSearchFieldAndSearchResults() {
 
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        HomePage homePage = new HomePage(driver);
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
 
-        driver.get("https://allo.ua");
+        openUrl(alloUrl);
 
-        sleep(3000);
+        Assert.assertTrue(homePage.searchInput().isDisplayed());
 
-        WebElement searchInput = driver.findElement(By.xpath("//input[@id='search-form__input']"));
-        Assert.assertTrue(searchInput.isDisplayed(), "Поле пошуку не відображається !");
+        homePage.searchInput().sendKeys("Фен");
+        homePage.searchButton().click();
 
-        searchInput.sendKeys("Фен");
+        Assert.assertTrue(searchResultPage.firstProduct().getText().toLowerCase().contains("фен"));
 
-        sleep(3000);
-
-        WebElement searchButton = driver.findElement(By.xpath("//button[contains(@class, 'search-form__submit')]"));
-        searchButton.click();
-
-        sleep(2000);
-
-        WebElement firstProduct = driver.findElement(By.xpath("//a[contains(@class, 'product-card__title')][1]"));
-        String productText = firstProduct.getText();
-
-        Assert.assertTrue(productText.toLowerCase().contains("фен"));
-
-        driver.quit();
     }
 
     @Test
     public void checkAirPods3SearchAndCompareName() throws InterruptedException {
 
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        HomePage homePage = new HomePage(driver);
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
 
-        driver.get("https://allo.ua");
+        openUrl(alloUrl);
 
-        sleep(3000);
+        Assert.assertTrue(homePage.alloLogo().isDisplayed());
 
-        WebElement alloLogo = driver.findElement(By.xpath("//*[@class='v-logo']"));
-        Assert.assertTrue(alloLogo.isDisplayed());
 
-        sleep(3000);
+        homePage.searchInput().sendKeys("AirPods 3");
+        homePage.searchButton().click();
 
-        WebElement searchInput = driver.findElement(By.xpath("//*[@id='search-form__input']"));
+        Assert.assertTrue(searchResultPage.firstProduct3().getText().contains("AirPods 3"));
+        searchResultPage.firstProduct3().click();
 
-        searchInput.sendKeys("AirPods 3");
 
-        sleep(3000);
+        Assert.assertTrue(searchResultPage.productTitle().getText().contains("AirPods 3"));
 
-        WebElement searchButton = driver.findElement(By.xpath("//button[@type='submit' and @class='search-form__submit-button']"));
-        searchButton.click();
 
-        sleep(3000);
-
-        WebElement firstProduct = driver.findElement(By.xpath("(//a[@class='product-card__title' and contains(text(), 'AirPods 3')])[1]"));
-        String productName = firstProduct.getText();
-
-        Assert.assertTrue(productName.contains("AirPods 3"));
-
-        firstProduct.click();
-
-        sleep(3000);
-
-        WebElement productTitle = driver.findElement(By.xpath("//h1[@class='p-view__header-title']"));
-        String productPageName = productTitle.getText();
-
-        Assert.assertEquals(productPageName, productName, "Назва товару на сторінці не збігається!");
-
-        driver.quit();
     }
 
     @Test
     public void checkBuyersDeliveryAndPayment() throws InterruptedException {
 
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        HomePage homePage = new HomePage(driver);
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
 
-        driver.get("https://allo.ua");
+        openUrl(alloUrl);
 
-        sleep(3000);
+        Assert.assertTrue(homePage.buyersButton().isDisplayed());
+        homePage.buyersButton().click();
 
-        WebElement buyersButton = driver.findElement(By.xpath("//a[contains(text(),'Покупцям')]"));
-        Assert.assertTrue(buyersButton.isDisplayed(), "Кнопка 'Покупцям' не відображається!");
 
-        buyersButton.click();
+        Assert.assertTrue(homePage.dropDownMenu().isDisplayed());
 
-        sleep(3000);
+        Assert.assertTrue(homePage.deliveryAndPayment().isDisplayed());
+        homePage.deliveryAndPayment().click();
 
-        WebElement dropDownMenu = driver.findElement(By.xpath("//*[@class='mh-button__wrap active']"));
-        Assert.assertTrue(dropDownMenu.isDisplayed(), "Dropdown меню не відкрилося!");
+        Assert.assertTrue(homePage.deliveryAndPayment().getText().contains("Доставка і оплата"));
 
-        sleep(3000);
+        Assert.assertTrue(searchResultPage.howToOrder().isDisplayed());
 
-        WebElement deliveryAndPayment = driver.findElement(By.xpath("//a[contains(text(),'Доставка і оплата')]"));
-        Assert.assertTrue(deliveryAndPayment.isDisplayed(), "'Доставка і оплата' не відображається!");
+        Assert.assertTrue(searchResultPage.howToOrder().getText().contains("Як оформити замовлення?"));
 
-        deliveryAndPayment.click();
 
-        sleep(3000);
-
-        String pageTitle = driver.getTitle();
-
-        Assert.assertTrue(pageTitle.contains("Доставка і оплата"), "Тайтл сторінки не містить 'Доставка і оплата'");
-
-        sleep(3000);
-
-        WebElement howToOrder = driver.findElement(By.xpath("//*[@class='sp-tablinks active']"));
-        Assert.assertTrue(howToOrder.isDisplayed(), "'Як оформити замовлення?' не відображається!");
-
-        Assert.assertEquals(howToOrder.getText(), "Як оформити замовлення?", "Текст елемента не збігається!");
-
-        driver.quit();
     }
 }
