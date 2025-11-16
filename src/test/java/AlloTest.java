@@ -34,15 +34,15 @@ public class AlloTest extends TestInit {
 
         HomePage homePage = new HomePage(driver);
         SearchResultPage searchResultPage = new SearchResultPage(driver);
+        String expectedWord = "фен";
 
         openUrl(alloUrl);
 
         Assert.assertTrue(homePage.searchInput().isDisplayed());
 
-        homePage.searchInput().sendKeys("Фен");
+        homePage.searchInput().sendKeys(expectedWord);
         homePage.searchButton().click();
 
-        String expectedWord = "фен";
         Assert.assertTrue(searchResultPage.firstProduct().getText().contains(expectedWord));
 
     }
@@ -52,20 +52,20 @@ public class AlloTest extends TestInit {
 
         HomePage homePage = new HomePage(driver);
         SearchResultPage searchResultPage = new SearchResultPage(driver);
+        String productName = "AirPods 3";
 
         openUrl(alloUrl);
 
         Assert.assertTrue(homePage.alloLogo().isDisplayed());
 
-        String producnName = "AirPods 3";
-        homePage.searchInput().sendKeys(producnName);
+        homePage.searchInput().sendKeys(productName);
         homePage.searchButton().click();
 
-        Assert.assertTrue(searchResultPage.firstProduct3().getText().contains(producnName));
+        Assert.assertTrue(searchResultPage.firstProduct3().getText().contains(productName));
         searchResultPage.firstProduct3().click();
 
 
-        Assert.assertTrue(searchResultPage.productTitle().getText().contains(producnName));
+        Assert.assertTrue(searchResultPage.productTitle().getText().contains(productName));
 
     }
 
@@ -74,6 +74,8 @@ public class AlloTest extends TestInit {
 
         HomePage homePage = new HomePage(driver);
         SearchResultPage searchResultPage = new SearchResultPage(driver);
+        String deliverySectionTitle = "Доставка і оплата";
+        String howToOrderTitle = "Як оформити замовлення";
 
         openUrl(alloUrl);
 
@@ -85,12 +87,10 @@ public class AlloTest extends TestInit {
         Assert.assertTrue(homePage.deliveryAndPayment().isDisplayed());
         homePage.deliveryAndPayment().click();
 
-        String deliverySectionTitle = "Доставка і оплата";
         Assert.assertTrue(homePage.deliveryAndPayment().getText().contains(deliverySectionTitle));
 
         Assert.assertTrue(searchResultPage.howToOrder().isDisplayed());
 
-        String howToOrderTitle = "Як оформити замовлення";
         Assert.assertTrue(searchResultPage.howToOrder().getText().contains(howToOrderTitle));
 
 

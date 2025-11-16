@@ -30,4 +30,5 @@ public class SearchResultPage extends BasePage {
     public WebElement howToOrder() {
         return visibilityOfElementByXpath(HOW_TO_ORDER);
     }
+
 }
