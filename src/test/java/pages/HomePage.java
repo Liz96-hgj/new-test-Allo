@@ -42,4 +42,11 @@ public class HomePage extends BasePage {
         return visibilityOfElementByXpath(DROP_DOWN_MENU);
     }
 
+    public void enterValuesInSearchField(String velue){
+        searchInput().sendKeys(velue);
+    }
+    public void clickSearchButton(){
+        searchButton().click();
+    }
+
 }
