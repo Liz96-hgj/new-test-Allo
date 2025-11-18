@@ -13,7 +13,6 @@ public class SearchResultPage extends BasePage {
     private final String FIRST_PROUDCT = "(//a[contains(@class, 'product-card__title') and contains(text(), 'Фен')])[1]";
     private final String FIRST_PRODUCT3 = "(//a[@class='product-card__title' and contains(text(), 'AirPods 3')])[1]";
     private final String PRODUCT_TITLE = "//h1[@class='p-view__header-title']";
-    private final String HOW_TO_ORDER = "//*[@class='sp-tablinks active']";
 
     public WebElement firstProduct() {
         return visibilityOfElementByXpath(FIRST_PROUDCT);
@@ -25,10 +24,6 @@ public class SearchResultPage extends BasePage {
 
     public WebElement productTitle() {
         return visibilityOfElementByXpath(PRODUCT_TITLE);
-    }
-
-    public WebElement howToOrder() {
-        return visibilityOfElementByXpath(HOW_TO_ORDER);
     }
 
 }

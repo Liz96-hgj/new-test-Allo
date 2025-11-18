@@ -17,7 +17,6 @@ public class HomePage extends BasePage {
     private final String SEARCH_BUTTON ="//button[contains(@class, 'search-form__submit')]";
     private final String BUYERS_BUTTON = "//a[contains(text(),'Покупцям')]";
     private final String DROP_DOWN_MENU = "//a[contains(text(),'Покупцям')]";
-    private final String DELIVERY_AND_PAYMENT ="//a[contains(@class, 'mh-button') and contains(normalize-space(.), 'Доставка і оплата')]";
 
     public WebElement alloLogo() {
         return visibilityOfElementByXpath(ALLO_LOGO);
@@ -41,10 +40,6 @@ public class HomePage extends BasePage {
 
     public WebElement dropDownMenu() {
         return visibilityOfElementByXpath(DROP_DOWN_MENU);
-    }
-
-    public WebElement deliveryAndPayment() {
-        return visibilityOfElementByXpath(DELIVERY_AND_PAYMENT);
     }
 
 }
