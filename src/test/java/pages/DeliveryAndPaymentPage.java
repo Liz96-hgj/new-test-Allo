@@ -13,9 +13,6 @@ public class DeliveryAndPaymentPage extends BasePage {
     private final String DELIVERY_AND_PAYMENT = "//a[contains(@class, 'mh-button') and contains(normalize-space(.), 'Доставка і оплата')]";
     private final String HOW_TO_ORDER = "//*[@class='sp-tablinks active']";
 
-
-
-
     public WebElement deliveryAndPayment() {
         return visibilityOfElementByXpath(DELIVERY_AND_PAYMENT);
     }
