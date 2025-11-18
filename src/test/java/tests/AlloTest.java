@@ -1,18 +1,11 @@
-
+package tests;
 
 import basesClass.TestInit;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.DeliveryAndPaymentPage;
 import pages.HomePage;
 import pages.SearchResultPage;
-
-import java.time.Duration;
 
 public class AlloTest extends TestInit {
 
@@ -73,7 +66,7 @@ public class AlloTest extends TestInit {
     public void checkBuyersDeliveryAndPayment() {
 
         HomePage homePage = new HomePage(driver);
-        SearchResultPage searchResultPage = new SearchResultPage(driver);
+        DeliveryAndPaymentPage deliveryAndPaymentPage = new DeliveryAndPaymentPage(driver);
         String deliverySectionTitle = "Доставка і оплата";
         String howToOrderTitle = "Як оформити замовлення";
 
@@ -84,15 +77,14 @@ public class AlloTest extends TestInit {
 
 
         Assert.assertTrue(homePage.dropDownMenu().isDisplayed());
-        Assert.assertTrue(homePage.deliveryAndPayment().isDisplayed());
-        homePage.deliveryAndPayment().click();
+        Assert.assertTrue(deliveryAndPaymentPage.deliveryAndPayment().isDisplayed());
+        deliveryAndPaymentPage.deliveryAndPayment().click();
 
-        Assert.assertTrue(homePage.deliveryAndPayment().getText().contains(deliverySectionTitle));
+        Assert.assertTrue(deliveryAndPaymentPage.deliveryAndPayment().getText().contains(deliverySectionTitle));
 
-        Assert.assertTrue(searchResultPage.howToOrder().isDisplayed());
+        Assert.assertTrue(deliveryAndPaymentPage.howToOrder().isDisplayed());
 
-        Assert.assertTrue(searchResultPage.howToOrder().getText().contains(howToOrderTitle));
-
+        Assert.assertTrue(deliveryAndPaymentPage.howToOrder().getText().contains(howToOrderTitle));
 
     }
 
