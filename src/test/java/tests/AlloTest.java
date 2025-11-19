@@ -1,6 +1,7 @@
 package tests;
 
 import basesClass.TestInit;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.DeliveryAndPaymentPage;
@@ -85,6 +86,60 @@ public class AlloTest extends TestInit {
         Assert.assertTrue(deliveryAndPaymentPage.howToOrder().isDisplayed());
 
         Assert.assertTrue(deliveryAndPaymentPage.howToOrder().getText().contains(howToOrderTitle));
+
+    }
+
+    @Test
+    public void checkResultSearchField() {
+
+        HomePage homePage = new HomePage(driver);
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
+
+        String samsungTV = "Телевізор Samsung";
+        int expectedSizeProducts = 60;
+
+        openUrl(alloUrl);
+
+        homePage.enterValuesInSearchField(samsungTV);
+        homePage.clickSearchButton();
+
+        searchResultPage.viewModelButtonDisplayed();
+        int sizeProducts = searchResultPage.namesSearchedProducts().size();
+
+        Assert.assertEquals(sizeProducts, expectedSizeProducts);
+
+        for (WebElement element : searchResultPage.namesSearchedProducts()) {
+            Assert.assertTrue(element.getText().contains(samsungTV));
+        }
+
+    }
+
+    @Test
+    public void checkingProductComments () {
+
+        HomePage homePage = new HomePage(driver);
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
+
+        String samsungTV = "Телевізор Samsung";
+        int expectedSizeProducts = 60;
+
+        openUrl(alloUrl);
+
+        homePage.enterValuesInSearchField(samsungTV);
+        homePage.clickSearchButton();
+
+        searchResultPage.viewModelButtonDisplayed();
+        int sizeProducts = searchResultPage.namesSearchedProducts().size();
+
+        Assert.assertEquals(sizeProducts, expectedSizeProducts);
+
+        for(WebElement element : searchResultPage.commentsSearchedProducts()) {
+           String numberComments = element.getText();
+           int number = Integer.parseInt(numberComments);
+           if (number > 27) {
+               System.out.println(number);
+           }
+       }
 
     }
 
