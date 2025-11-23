@@ -1,12 +1,14 @@
 package basesClass;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class BasePage {
 
@@ -21,5 +23,16 @@ public class BasePage {
     public WebElement visibilityOfElementByXpath (String locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
     }
+
+    public List<WebElement> visibilityOfElementsLocatorByXpath (String locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+        return driver.findElements(By.xpath(locator));
+    }
+
+    public void scrollToElement(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
 
 }
